@@ -2,6 +2,7 @@ import './conversor-moedas.css';
 import { Container, Row, Col, Button, Form, Spinner, Alert, Modal} from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleDoubleRight } from '@fortawesome/free-solid-svg-icons';
+import ListarMoedas from './listar-moedas';
 
 function ConversorMoedas() {
   
@@ -23,7 +24,7 @@ function ConversorMoedas() {
               </Col>
               <Col sm="3">
                 <Form.Control as="select">
-
+                  <ListarMoedas />
                 </Form.Control>
               </Col>
               <Col sm="1" className='text-center' style={{marginTop: '5px'}}>
@@ -31,7 +32,7 @@ function ConversorMoedas() {
               </Col>
               <Col sm="3">
                 <Form.Control as="select">
-                  
+                  <ListarMoedas />
                 </Form.Control>
               </Col>
               <Col sm="2">
