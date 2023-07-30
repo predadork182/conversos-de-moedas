@@ -27,11 +27,19 @@ function ConversorMoedas() {
     setMoedaPara(event.target.value)
   }
 
+  function handleFecharModal(event) {
+    setValor('1')
+    setMoedaDe('BRL')
+    setMoedaPara('USD')
+    setFormValidado(false)
+    setExibirModal(false)
+  }
+
   function converter(event) {
     event.preventDefault();
     setFormValidado(true)
     if (event.currentTarget.checkValidity() == true) {
-       
+       setExibirModal(true)
     } 
   }
   
