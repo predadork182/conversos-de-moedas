@@ -46,6 +46,9 @@ function ConversorMoedas() {
       axios.get(FIXER_URL)
         .then(res => {
           const cotacao = obterCotacao(res.data);
+          setResultadoConversao(`${valor} ${moedaDe} = ${cotacao} ${moedaPara}`);
+          setExibirModal(true);
+          setExibirSpinner(false);
         })
     } 
   }
