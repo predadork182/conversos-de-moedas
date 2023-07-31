@@ -42,9 +42,22 @@ function ConversorMoedas() {
     event.preventDefault();
     setFormValidado(true)
     if (event.currentTarget.checkValidity() == true) {
-       setExibirModal(true)
-       axios.get(FIXER_URL)
+      setExibirModal(true)
+      axios.get(FIXER_URL)
+        .then(res => {
+          const cotacao = obterCotacao(res.data);
+        })
     } 
+  }
+
+  function obterCotacao(dadosCotacao) {
+    if (!dadosCotacao || dadosCotacao.success !== true) {
+      return false
+    }
+    const cotacaoDe = dadosCotacao.rates[moedaDe];
+    const cotacaoPara = dadosCotacao.rates[moedaPara];
+    const cotacao = (1 / cotacaoDe * cotacaoPara) * valor;
+    return cotacao.toFixed(2);
   }
   
   return (
