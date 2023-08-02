@@ -17,6 +17,7 @@ function ConversorMoedas() {
   const [formValidado, setFormValidado] = useState(false)
   const [exibirModal, setExibirModal] = useState(false)
   const [resultadoConversao, setResultadoConversao] = useState('')
+  const [ExibirMsgErro, setExibirMsmErro] = useState(false)
 
   function handleValor(event) {
     setValor(event.target.value.replace(/\D/g,'')); 
@@ -41,15 +42,21 @@ function ConversorMoedas() {
   function converter(event) {
     event.preventDefault();
     setFormValidado(true)
+    setExibirSpinner(true);
     if (event.currentTarget.checkValidity() == true) {
-      setExibirModal(true)
+      // setExibirModal(true)
       axios.get(FIXER_URL)
         .then(res => {
           const cotacao = obterCotacao(res.data);
-          setResultadoConversao(`${valor} ${moedaDe} = ${cotacao} ${moedaPara}`);
-          setExibirModal(true);
-          setExibirSpinner(false);
-        })
+          if (cotacao) {
+            setResultadoConversao(`${valor} ${moedaDe} = ${cotacao} ${moedaPara}`);
+            setExibirModal(true);
+            setExibirSpinner(false);
+            setExibirMsmErro(false);
+          } else {
+            exibirErro(); 
+          }
+        }).catch(err => exibirErro());
     } 
   }
 
@@ -62,13 +69,19 @@ function ConversorMoedas() {
     const cotacao = (1 / cotacaoDe * cotacaoPara) * valor;
     return cotacao.toFixed(2);
   }
+
+  function exibirErro(){
+    setExibirMsmErro(true);
+    setExibirModal(false);
+    setExibirSpinner(false);
+  }
   
   return (
     <> 
     <Container>
       <Row>
           <h2 style={{textAlign: 'center', marginTop: '15px', marginBottom:'15px'}}>Conversor Moedas</h2>
-          <Alert variant="danger" show={false}>
+          <Alert variant="danger" show={ExibirMsgErro}>
              Obtendo dados de conversão, tente novamente.
           </Alert>
       </Row>
