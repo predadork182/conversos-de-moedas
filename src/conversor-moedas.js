@@ -8,7 +8,7 @@ import axios from 'axios';
 
 function ConversorMoedas() {
 
-  const FIXER_URL = "http://data.fixer.io/api/latest?access_key=eba7130a5b2d720ce43eb5fcddd47cc3";
+  const FIXER_URL = "http://data.fixer.io/api/latest?access_key=eba7130a5b2d720ce43eb5fcddd47cc3"; 
 
   const [valor, setValor] = useState('1')
   const [moedaDe, setMoedaDe] = useState('BRL')
